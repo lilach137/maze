@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/ic_background"
+    tools:context=".Activities.MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maze App"
+        android:fontFamily="@font/font3"
+        android:textSize="40sp"
+        android:textColor="#D81B60"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/newMeasure_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_LST_levels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/list_level"
+                />
+
+        </ScrollView>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/main_LAY_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
