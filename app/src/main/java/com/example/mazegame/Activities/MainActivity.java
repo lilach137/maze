@@ -25,25 +25,34 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.BuildConfig;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAnalytics mFirebaseAnalytics;
     private RecyclerView main_LST_levels;
     private RewardedAd mRewardedAd;
     private FrameLayout main_LAY_banner;
-
+    private MaterialButton action_a;
+    private MaterialButton action_b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         main_LAY_banner = findViewById(R.id.main_LAY_banner);
         main_LST_levels = findViewById(R.id.main_LST_levels);
+        action_a = findViewById(R.id.action_a);
+        action_b = findViewById(R.id.action_b);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setUserId("test0");
+        action_a.setOnClickListener(v -> actionA());
+        action_b.setOnClickListener(v -> actionB());
 
         initAdapter();
-        //need to be where we are showing the banner
-        //showBanner();
+        loadVideoAd();
 
     }
 
@@ -68,13 +77,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void actionA() {
+        showBanner();
+    }
 
+    private void actionB() {
+        showVideoAd();
+    }
     private void showBanner() {
         String UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
-        if (BuildConfig.DEBUG) {
-            UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
-        }
-
         AdView adView = new AdView(this);
         adView.setAdUnitId(UNIT_ID);
         main_LAY_banner.addView(adView);

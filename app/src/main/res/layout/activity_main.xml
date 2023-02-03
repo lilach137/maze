@@ -13,24 +13,23 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maze App"
-        android:fontFamily="@font/font3"
-        android:textSize="40sp"
-        android:textColor="#D81B60"
+        android:text="Maze Game"
+        android:fontFamily="@font/font2"
+        android:textSize="60sp"
+        android:textColor="@color/teal_200"
         android:textStyle="bold"
         android:layout_marginTop="30dp"
         android:layout_gravity="center" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:layout_marginLeft="80dp"
         android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/newMeasure_scroll"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp">
 
@@ -38,7 +37,7 @@
                 android:id="@+id/main_LST_levels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
                 android:clipToPadding="false"
@@ -49,6 +48,37 @@
 
         </ScrollView>
     </LinearLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="@color/teal_200">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/action_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="75dp"
+                android:backgroundTint="@color/black"
+                app:cornerRadius="20dp"
+                android:text="action a"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/action_b"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                app:cornerRadius="20dp"
+                android:text="action b"/>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+
     <FrameLayout
         android:id="@+id/main_LAY_banner"
         android:layout_width="match_parent"

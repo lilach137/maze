@@ -160,7 +160,6 @@ public class GameMazeView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(R.drawable.ic_background);
-
         int width = getWidth();
         int height = getHeight();
 

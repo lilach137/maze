@@ -15,15 +15,15 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_weight="0.5"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/font2"
             android:gravity="center"
-            android:text="Welcome to\n Maze Application"
-            android:textColor="#D81B60"
-            android:textSize="30sp"
-            android:fontFamily="@font/font3"
+            android:text="Welcome to\n Maze Game"
+            android:textColor="@color/teal_200"
+            android:textSize="50sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -61,7 +61,8 @@
                     android:background="#F6F3EF"
                     android:hint="Email"
                     android:textStyle="bold"
-                    android:fontFamily="@font/font3"
+                    android:fontFamily="@font/font2"
+                    android:textSize="25sp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -84,7 +85,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
-                    android:fontFamily="@font/font3"
+                    android:fontFamily="@font/font2"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:background="#F6F3EF"
                     android:inputType="textPassword"
@@ -97,23 +99,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Please try again!"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:fontFamily="@font/font3"
+                android:textSize="30dp"
+                android:fontFamily="@font/font2"
                 android:layout_gravity="center"
-                android:textColor="#D81B60"/>
+                android:textColor="@color/teal_200"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/main_BTN_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Sign in"
-                android:textColor="#D81B60"
+                android:textColor="@color/teal_200"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold"
-                android:fontFamily="@font/font3"
+                android:fontFamily="@font/font2"
                 app:cornerRadius="30dp"
                 android:layout_gravity="center"
                 android:backgroundTint="#F6F3EF" />
@@ -122,16 +124,16 @@
                 android:id="@+id/main_FAB_sign_up"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:backgroundTint="#D81B60"
                 android:layout_marginTop="30dp"
+                android:backgroundTint="@color/teal_200"
+                android:fontFamily="@font/font2"
                 android:gravity="center"
                 android:text="Sign Up"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="25sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/font3"
                 app:icon="@drawable/ic_sign_up"
-                app:iconGravity="textEnd"
+                app:iconGravity="textStart"
                 app:iconTint="@color/white" />
 
         </LinearLayout>

@@ -67,7 +67,7 @@ public class Activity_NewVideo extends AppCompatActivity {
 
 
     private void findViews() {
-        //action_a = findViewById(R.id.action_a);
+        action_a = findViewById(R.id.action_a);
     }
 
 }

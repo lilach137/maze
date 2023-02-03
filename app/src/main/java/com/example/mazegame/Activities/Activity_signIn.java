@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,7 @@ public class Activity_signIn extends AppCompatActivity {
     private ExtendedFloatingActionButton main_FAB_sign_up;
     private TextInputEditText main_EDT_password;
     private TextInputEditText main_EDT_email;
-    private EditText main_txt_error;
+    private TextView main_txt_error;
     private final DataManager dataManager = DataManager.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,5 +76,6 @@ public class Activity_signIn extends AppCompatActivity {
         main_BTN_sign_in = findViewById(R.id.main_BTN_sign_in);
         main_EDT_password =findViewById(R.id.main_EDT_password);
         main_EDT_email = findViewById(R.id.main_EDT_email);
+        main_txt_error = findViewById(R.id.main_txt_error);
     }
 }
