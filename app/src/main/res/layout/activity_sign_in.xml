@@ -47,7 +47,7 @@
                 android:layout_width="300dp"
                 android:layout_height="55dp"
                 android:layout_marginBottom="20dp"
-                app:startIconDrawable="@android:drawable/ic_dialog_email"
+                app:startIconDrawable="@drawable/ic_user"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="3dp"
                 android:textColorHint="@color/black"
@@ -55,11 +55,11 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/main_EDT_email"
+                    android:id="@+id/main_EDT_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F6F3EF"
-                    android:hint="Email"
+                    android:hint="user name"
                     android:textStyle="bold"
                     android:fontFamily="@font/font2"
                     android:textSize="25sp"

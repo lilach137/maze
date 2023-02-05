@@ -48,42 +48,11 @@
 
         </ScrollView>
     </LinearLayout>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="@color/teal_200">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/action_a"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="75dp"
-                android:backgroundTint="@color/black"
-                app:cornerRadius="20dp"
-                android:text="action a"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/action_b"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                app:cornerRadius="20dp"
-                android:text="action b"/>
-
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
-
 
     <FrameLayout
         android:id="@+id/main_LAY_banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

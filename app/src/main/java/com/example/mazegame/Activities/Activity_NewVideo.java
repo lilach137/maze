@@ -11,7 +11,7 @@ public class Activity_NewVideo extends AppCompatActivity {
 
     public static final String TAG = "PTTT_Activity_VideoNew";
 
-    private MaterialButton action_a;
+    private MaterialButton main_BTN_sign_in;
 
 
     VideoAd coinVideo;
@@ -19,16 +19,16 @@ public class Activity_NewVideo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_in);
         findViews();
-        action_a.setOnClickListener(view -> start());
+        main_BTN_sign_in.setOnClickListener(view -> start());
 
         initAds();
     }
 
     private void start() {
         if (coinVideo.isLoaded()) {
-            action_a.setEnabled(false);
+            main_BTN_sign_in.setEnabled(false);
             coinVideo.show();
         } else {
             initAds();
@@ -39,7 +39,7 @@ public class Activity_NewVideo extends AppCompatActivity {
     VideoAd.CallBack callBack = new VideoAd.CallBack() {
         @Override
         public void unitLoaded() {
-            action_a.setEnabled(true);
+            main_BTN_sign_in.setEnabled(true);
         }
 
         @Override
@@ -59,7 +59,7 @@ public class Activity_NewVideo extends AppCompatActivity {
     };
 
     private void initAds() {
-        action_a.setEnabled(false);
+        main_BTN_sign_in.setEnabled(false);
         String UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
         coinVideo = new VideoAd(this, UNIT_ID, callBack);
     }
@@ -67,7 +67,7 @@ public class Activity_NewVideo extends AppCompatActivity {
 
 
     private void findViews() {
-        action_a = findViewById(R.id.action_a);
+        main_BTN_sign_in = findViewById(R.id.main_BTN_sign_in);
     }
 
 }

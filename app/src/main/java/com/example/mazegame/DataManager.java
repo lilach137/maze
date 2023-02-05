@@ -94,7 +94,7 @@ public class DataManager {
                 });
     }
 
-    public int findUserInDB(String email, String password){
+    public int findUserInDB(String name, String password){
         final int[] answer = {0};
         CollectionReference myRef = dbFireStore.collection("Users");
         myRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -103,7 +103,7 @@ public class DataManager {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         User loadedUser = document.toObject(User.class);
-                        if (loadedUser.getEmail().equals(email)) {
+                        if (loadedUser.getName().equals(name)) {
                             if (loadedUser.getPassword().equals(password)) {
                                 DataManager.getInstance().setCurrentUser(loadedUser);
                                 Log.d("pttt", document.getId() + " => " + document.getData());

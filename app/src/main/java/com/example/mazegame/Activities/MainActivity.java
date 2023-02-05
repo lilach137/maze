@@ -34,31 +34,30 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private RecyclerView main_LST_levels;
-    private RewardedAd mRewardedAd;
+
     private FrameLayout main_LAY_banner;
-    private MaterialButton action_a;
-    private MaterialButton action_b;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         main_LAY_banner = findViewById(R.id.main_LAY_banner);
         main_LST_levels = findViewById(R.id.main_LST_levels);
-        action_a = findViewById(R.id.action_a);
-        action_b = findViewById(R.id.action_b);
+
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setUserId("test0");
-        action_a.setOnClickListener(v -> actionA());
-        action_b.setOnClickListener(v -> actionB());
 
+        showBanner();
         initAdapter();
-        loadVideoAd();
 
     }
 
     private void initAdapter(){
         ArrayList<Level> levels = DataManager.generateLevels();
         Adapter_level adapter_level = new Adapter_level(this, levels);
+
         main_LST_levels.setHasFixedSize(true);
         main_LST_levels.setItemAnimator(new DefaultItemAnimator());
         main_LST_levels.setAdapter(adapter_level);
@@ -70,20 +69,13 @@ public class MainActivity extends AppCompatActivity {
                 int nRows = level.getRows();
                 int nColumns = level.getColumns();
                 Intent intent = new Intent(MainActivity.this, Activity_Maze.class);
-
                 intent.putExtra("rows", nRows);
                 intent.putExtra("columns",nColumns);
                 startActivity(intent);
             }
         });
     }
-    private void actionA() {
-        showBanner();
-    }
 
-    private void actionB() {
-        showVideoAd();
-    }
     private void showBanner() {
         String UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
         AdView adView = new AdView(this);
@@ -111,42 +103,10 @@ public class MainActivity extends AppCompatActivity {
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
-    private void loadVideoAd() {
-       // action_a.setEnabled(false);
-        String UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
-        if (BuildConfig.DEBUG) {
-            UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
-        }
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        RewardedAd.load(this, UNIT_ID,
-                adRequest, new RewardedAdLoadCallback() {
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error.
-                        Log.d("pttt", loadAdError.toString());
-                        mRewardedAd = null;
-                    }
-
-                    @Override
-                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                        mRewardedAd = rewardedAd;
-                        //action_b.setEnabled(true);
-                        Log.d("pttt", "Ad was loaded.");
-                    }
-                });
-    }
 
 
-    private void showVideoAd() {
-        mRewardedAd.show(this, new OnUserEarnedRewardListener() {
-            @Override
-            public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                Toast.makeText(MainActivity.this, "Congr... +1 Live", Toast.LENGTH_SHORT).show();
-                loadVideoAd();
-            }
-        });
-    }
+
+
 
 
 
