@@ -19,10 +19,22 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.BuildConfig;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class Activity_signIn extends AppCompatActivity {
 
@@ -30,10 +42,9 @@ public class Activity_signIn extends AppCompatActivity {
     private ExtendedFloatingActionButton main_FAB_sign_up;
     private TextInputEditText main_EDT_password;
     private TextInputEditText main_EDT_name;
-    private TextView main_txt_error;
     private final DataManager dataManager = DataManager.getInstance();
     private RewardedAd mRewardedAd;
-    private User currentUser;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
@@ -52,32 +63,9 @@ public class Activity_signIn extends AppCompatActivity {
         main_BTN_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int exist;
                 String name = main_EDT_name.getText().toString();
                 String password = main_EDT_password.getText().toString();
-                exist = dataManager.findUserInDB(name,password);
-                if (exist == 0) {
-                    main_txt_error.setVisibility(View.INVISIBLE);
-                    currentUser = dataManager.getCurrentUser();
-                    if (!currentUser.isPremium()){
-                        showVideoAd();
-                    }
-                    Intent intent = new Intent(Activity_signIn.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                if (exist == 1) {
-                    Toast.makeText(Activity_signIn.this, "The email is not registered in the system", Toast.LENGTH_SHORT).show();
-                    main_EDT_name.getText().clear();
-                    main_EDT_password.getText().clear();
-                    main_txt_error.setVisibility(View.VISIBLE);
-                }
-                if (exist == 2) {
-                    Toast.makeText(Activity_signIn.this, "Wrong password please try again", Toast.LENGTH_SHORT).show();
-                    main_EDT_name.getText().clear();
-                    main_EDT_password.getText().clear();
-                    main_txt_error.setVisibility(View.VISIBLE);
-                }
+                login(name,password);
             }
         });
     }
@@ -121,6 +109,44 @@ public class Activity_signIn extends AppCompatActivity {
         main_BTN_sign_in = findViewById(R.id.main_BTN_sign_in);
         main_EDT_password =findViewById(R.id.main_EDT_password);
         main_EDT_name = findViewById(R.id.main_EDT_name);
-        main_txt_error = findViewById(R.id.main_txt_error);
     }
-}
+    private void login(String name, String password) {
+        final boolean[] isExist = {false};
+        DatabaseReference myRef = dataManager.getRealTimeDB().getReference("Users");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot.child("name").getValue().equals(name)) {
+                        isExist[0] = true;
+                        if (dataSnapshot.child("password").getValue().equals(password)) {
+                            Intent intent = new Intent(Activity_signIn.this, MainActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("name", dataSnapshot.child("name").getValue().toString());
+                            bundle.putString("premium", dataSnapshot.child("premium").getValue().toString());
+                            bundle.putInt("lastLevel", Integer.parseInt(dataSnapshot.child("lastLevel").getValue().toString()));
+                            intent.putExtra("Bundle", bundle);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Toast.makeText(Activity_signIn.this, "The password is incorrect, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                if (!isExist[0]) {
+                    Toast.makeText(Activity_signIn.this, "The name is not registered in the system", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+
+        });
+
+
+    }
+    }

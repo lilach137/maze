@@ -15,6 +15,7 @@ import com.example.mazegame.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.UUID;
 
@@ -40,11 +41,13 @@ public class Activity_SignUp extends AppCompatActivity {
                 String userName = main_EDT_name.getText().toString();
                 String password = main_EDT_password.getText().toString();
                 boolean premium_account = premium.isChecked();
+                DataManager.getInstance().setCurrentUser(new User(userName , premium_account , 1));
                 userToStore.setName(userName);
                 userToStore.setPassword(password);
                 userToStore.setPremium(premium_account);
+                userToStore.setLastLevel(1);
                 dataManager.setCurrentUser(userToStore);
-                dataManager.storeUserInDB(userToStore);
+                storeUserInDB(userToStore);
                 Toast.makeText(getApplicationContext(), "saved successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Activity_SignUp.this, MainActivity.class));
                 finish();
@@ -60,5 +63,14 @@ public class Activity_SignUp extends AppCompatActivity {
         main_EDT_name  = findViewById(R.id.main_EDT_name);
         main_EDT_password = findViewById(R.id.main_EDT_password);
         premium = findViewById(R.id.premium_account);
+    }
+
+    private void storeUserInDB(User tempUser) {
+        UUID uuid = UUID.randomUUID();
+        DatabaseReference myRef = DataManager.getInstance().getRealTimeDB().getReference("Users").child(uuid.toString());
+        myRef.child("name").setValue(tempUser.getName());
+        myRef.child("password").setValue(tempUser.getPassword());
+        myRef.child("premium").setValue(tempUser.isPremium());
+        myRef.child("lastLevel").setValue(tempUser.getLastLevel());
     }
 }

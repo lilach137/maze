@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +18,7 @@ public class Activity_Splash extends AppCompatActivity {
 
     final int ANIM_DURATION = 4400;
 
-    private ImageView splash_IMG_logo;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +30,9 @@ public class Activity_Splash extends AppCompatActivity {
 
         findViews();
 
-        splash_IMG_logo.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.INVISIBLE);
 
-        showViewSlideDown(splash_IMG_logo);
+        showViewSlideDown(textView);
     }
 
     public void showViewSlideDown(final View v) {
@@ -83,6 +84,6 @@ public class Activity_Splash extends AppCompatActivity {
     }
 
     private void findViews() {
-        splash_IMG_logo = findViewById(R.id.splash_IMG_logo);
+        textView = findViewById(R.id.textView);
     }
 }

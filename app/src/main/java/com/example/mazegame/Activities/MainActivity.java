@@ -17,6 +17,7 @@ import com.example.mazegame.Adapter_level;
 import com.example.mazegame.DataManager;
 import com.example.mazegame.Level;
 import com.example.mazegame.R;
+import com.example.mazegame.User;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView main_LST_levels;
 
     private FrameLayout main_LAY_banner;
-
+    private boolean premium;
+    private int lastLevel = 1;
 
 
     @Override
@@ -46,32 +48,51 @@ public class MainActivity extends AppCompatActivity {
         main_LAY_banner = findViewById(R.id.main_LAY_banner);
         main_LST_levels = findViewById(R.id.main_LST_levels);
 
+        if (DataManager.getInstance().getCurrentUser() == null) {
+            Bundle bundle = getIntent().getBundleExtra("Bundle");
+            String name = bundle.getString("name");
+            premium = Boolean.parseBoolean(bundle.getString("premium"));
+            lastLevel = bundle.getInt("lastLevel");
+            DataManager.getInstance().setCurrentUser(new User(name, premium , lastLevel));
+        } else{
+            premium = DataManager.getInstance().getCurrentUser().isPremium();
+            lastLevel = DataManager.getInstance().getCurrentUser().getLastLevel();
+        }
+
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setUserId("test0");
 
-        showBanner();
-        initAdapter();
+
+        if (!premium) {
+            showBanner();
+        }
+        initAdapter(premium ,lastLevel);
 
     }
 
-    private void initAdapter(){
+    private void initAdapter(boolean premium , int lastLevel){
         ArrayList<Level> levels = DataManager.generateLevels();
-        Adapter_level adapter_level = new Adapter_level(this, levels);
+        Adapter_level adapter_level = new Adapter_level(this, levels, premium , lastLevel);
 
         main_LST_levels.setHasFixedSize(true);
         main_LST_levels.setItemAnimator(new DefaultItemAnimator());
         main_LST_levels.setAdapter(adapter_level);
 
+
+
         adapter_level.setLevelClickListener(new Adapter_level.LevelListener() {
             @Override
-            public void click(Level level, int position) {
+            public void click(Level level, int position,boolean premium) {
                 Toast.makeText(MainActivity.this,"level "+ level.getNum(), Toast.LENGTH_SHORT).show();
                 int nRows = level.getRows();
                 int nColumns = level.getColumns();
+                int nLeve = level.getNum();
                 Intent intent = new Intent(MainActivity.this, Activity_Maze.class);
                 intent.putExtra("rows", nRows);
                 intent.putExtra("columns",nColumns);
+                intent.putExtra("level",nLeve);
                 startActivity(intent);
+
             }
         });
     }

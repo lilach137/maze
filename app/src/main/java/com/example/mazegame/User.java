@@ -12,14 +12,16 @@ public class User {
         private Map<Integer,Integer> scores;
         private boolean premium;
 
-        public User(String name, String password, boolean premium) {
+        private int lastLevel;
+
+
+        public User(String name, boolean premium, int lastLevel) {
             this.name = name;
-            this.password = password;
             this.premium = premium;
+            this.lastLevel = lastLevel;
         }
 
         public User() {
-
         }
 
         public String getName() {
@@ -54,7 +56,15 @@ public class User {
             this.premium = premium;
         }
 
-        public Map<Integer, Integer> getScores() {
+        public int getLastLevel() {
+            return lastLevel;
+        }
+
+        public void setLastLevel(int lastLevel) {
+            this.lastLevel = lastLevel;
+        }
+
+    public Map<Integer, Integer> getScores() {
             return scores;
         }
 

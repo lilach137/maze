@@ -35,6 +35,7 @@ public class GameMazeView extends View {
     private Cell player, exit;
     private int COLS;
     private int ROWS;
+    private int LEVEL;
     private static final float WALL_THICKNESS = 4;
     private float cellSize, hMargin, vMargin;
     private Paint wallPaint, playerPaint, exitPaint;
@@ -61,17 +62,18 @@ public class GameMazeView extends View {
         super(mContext, attrs);
         this.mContext = mContext;
         wallPaint = new Paint();
-        wallPaint.setColor(Color.BLACK);
+        wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(WALL_THICKNESS);
 
         playerPaint = new Paint();
-        playerPaint.setColor(Color.WHITE);
+        playerPaint.setColor(Color.GREEN);
 
         Intent intent = ((Activity)mContext).getIntent();
         Bundle extras = intent.getExtras();
 
         ROWS = extras.getInt("rows");
         COLS = extras.getInt("columns");
+        LEVEL = extras.getInt("level");
 
         exitPaint = new Paint();
         exitPaint.setColor(Color.YELLOW);
@@ -232,8 +234,8 @@ public class GameMazeView extends View {
     private void checkExit() {
         if (player == exit){
             Intent intent = new Intent(mContext.getApplicationContext(), MainActivity.class);
+            DataManager.getInstance().getCurrentUser().setLastLevel(LEVEL+1);
             mContext.startActivity(intent);
-
         }
     }
 
@@ -317,11 +319,6 @@ public class GameMazeView extends View {
 
     };
 
-
-
-    private void stopTimer() {
-        timer.cancel();
-    }
 
 }
 
